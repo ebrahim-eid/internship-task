@@ -1,5 +1,5 @@
+import 'package:credit_card_form/credit_card_form.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_credit_card/flutter_credit_card.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:internship_task/screens/success_screen.dart';
 
@@ -19,13 +19,6 @@ class _PaymentScreenState extends State<PaymentScreen> {
   Color color1() => isClicked1 ? Colors.white : Colors.black;
   Color color2() => isClicked2 ? Colors.black : Colors.white;
   Color color3() => isClicked3 ? Colors.white : Colors.black;
-  String cardNumber = '';
-  String expiryDate = '';
-  String cardHolderName = '';
-  String cvvCode = '';
-  bool showBackView = false;
-  var formKey = GlobalKey<FormState>();
-  bool isCvvFocused = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,8 +30,8 @@ class _PaymentScreenState extends State<PaymentScreen> {
             children: [
               const Image(
                 image: AssetImage("assets/pay_images/payment.png"),
-                width: 120,
-                height: 120,
+                width: 200,
+                height: 200,
                 fit: BoxFit.cover,
                 color: Colors.cyan,
               ),
@@ -73,11 +66,11 @@ class _PaymentScreenState extends State<PaymentScreen> {
                     });
                   }),
               const SizedBox(height: 10),
+              /// Every payment has its UI
               AnimatedContainer(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+
                 width: double.infinity,
-                height: isClicked2 ? 0 : 280,
+                height: isClicked2 ? 0 : 166,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
                   color: Colors.grey.withOpacity(0.3),
@@ -88,72 +81,10 @@ class _PaymentScreenState extends State<PaymentScreen> {
                         child: Column(
                           children: [
                             CreditCardForm(
-                              formKey: formKey, // Required
-                              cardNumber: cardNumber, // Required
-                              expiryDate: expiryDate, // Required
-                              cardHolderName: cardHolderName, // Required
-                              cvvCode: cvvCode, // Required
-                              // cardNumberKey: cardNumberKey,
-                              // cvvCodeKey: cvvCodeKey,
-                              // expiryDateKey: expiryDateKey,
-                              // cardHolderKey: cardHolderKey,
-                              onCreditCardModelChange: (CreditCardModel data) {}, // Required
-                              obscureCvv: true,
-                              obscureNumber: true,
-                              isHolderNameVisible: true,
-                              isCardNumberVisible: true,
-                              isExpiryDateVisible: true,
-                              enableCvv: true,
-                              cvvValidationMessage: 'Please input a valid CVV',
-                              dateValidationMessage: 'Please input a valid date',
-                              numberValidationMessage: 'Please input a valid number',
-                              cardNumberValidator: (String? cardNumber){},
-                              expiryDateValidator: (String? expiryDate){},
-                              cvvValidator: (String? cvv){},
-                              cardHolderValidator: (String? cardHolderName){},
-                              onFormComplete: () {
-                                // callback to execute at the end of filling card data
+                              theme: CreditCardLightTheme(),
+                              onChanged: (CreditCardResult result) {
+
                               },
-                              autovalidateMode: AutovalidateMode.always,
-                              disableCardNumberAutoFillHints: false,
-                              inputConfiguration: const InputConfiguration(
-                                cardNumberDecoration: InputDecoration(
-                                  border: OutlineInputBorder(),
-                                  labelText: 'Number',
-                                  hintText: 'XXXX XXXX XXXX XXXX',
-                                ),
-                                expiryDateDecoration: InputDecoration(
-                                  border: OutlineInputBorder(),
-                                  labelText: 'Expired Date',
-                                  hintText: 'XX/XX',
-                                ),
-                                cvvCodeDecoration: InputDecoration(
-                                  border: OutlineInputBorder(),
-                                  labelText: 'CVV',
-                                  hintText: 'XXX',
-                                ),
-                                cardHolderDecoration: InputDecoration(
-                                  contentPadding:  EdgeInsets.symmetric(vertical: 5.0,horizontal: 10),
-                                  border: OutlineInputBorder(),
-                                  labelText: 'Card Holder',
-                                ),
-                                cardNumberTextStyle: TextStyle(
-                                  fontSize: 10,
-                                  color: Colors.black,
-                                ),
-                                cardHolderTextStyle: TextStyle(
-                                  fontSize: 10,
-                                  color: Colors.black,
-                                ),
-                                expiryDateTextStyle: TextStyle(
-                                  fontSize: 10,
-                                  color: Colors.black,
-                                ),
-                                cvvCodeTextStyle: TextStyle(
-                                  fontSize: 10,
-                                  color: Colors.black,
-                                ),
-                              ),
                             ),
                           ],
                         ),
@@ -240,3 +171,4 @@ class _PaymentScreenState extends State<PaymentScreen> {
     );
   }
 }
+
